@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Allocation.WPF.Views.GiftCardRowView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Allocation.WPF.Views"
+             xmlns:converter="clr-namespace:Allocation.WPF.Converters"
+             xmlns:vm="clr-namespace:Allocation.WPF.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type=vm:GiftCardRowViewModel}">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+    <Grid Background="OldLace">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="17*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" >
+            <TextBlock Text="{Binding Destinatario}" FontSize="15" FontWeight="Medium" Margin="4" />
+            <TextBlock Text="{Binding Importo}" FontSize="15" FontWeight="Medium" Margin="4" />
+        </StackPanel>
+        <TextBlock Grid.Row="0" Height="50" Grid.Column="1" Visibility="{Binding Path=ShowDetails, Converter={StaticResource BoolToVisibility}}"
+                   FontWeight="DemiBold" FontSize="12" Margin="10,10,10,10" Text="{Binding Path=Messaggio}">
+        </TextBlock>
+        <Button Grid.Row="0" Height="50" Grid.Column="2"  >
+            <!--Command="{Binding UpdateCommand}"-->
+            Update
+        </Button>
+        <Button Grid.Row="0" Height="50" Grid.Column="3" Command="{Binding DeleteCommand}" >
+            Delete
+        </Button>
+        <CheckBox Grid.Row="0" Height="50" Grid.Column="4" IsChecked="{Binding Path=ShowDetails}" VerticalAlignment="Top">
+            Mostra messaggio
+        </CheckBox>
+    </Grid>
+</UserControl>
